@@ -1,16 +1,17 @@
 # 🚀 Complete DevOps, Cloud & SRE Roadmap 2025
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/HashimThePassionate/devops-sre-cloud-roadmap
-" />
-  <img src="https://img.shields.io/github/repo-size/HashimThePassionate/devops-sre-cloud-roadmap
-" />
-  <img src="https://img.shields.io/github/last-commit/HashimThePassionate/devops-sre-cloud-roadmap
-" />
-  <img src="https://img.shields.io/github/stars/HashimThePassionate/devops-sre-cloud-roadmap
-?style=social" />
+  <img src="https://img.shields.io/github/license/HashimThePassionate/devops-sre-cloud-roadmap" />
+  <img src="https://img.shields.io/github/repo-size/HashimThePassionate/devops-sre-cloud-roadmap" />
+  <img src="https://img.shields.io/github/last-commit/HashimThePassionate/devops-sre-cloud-roadmap" />
+  <img src="https://img.shields.io/github/stars/HashimThePassionate/devops-sre-cloud-roadmap?style=social" />
 </p>
 
+<p align="center">
+  <a href="https://hashimthepassionate.github.io/devops-sre-cloud-roadmap/DevOps-SRE-Cloud-roadmap.html">
+    <img src="https://img.shields.io/badge/📱_Live_Preview-Click_Here-blue?style=for-the-badge&logo=github" alt="Live Preview" />
+  </a>
+</p>
 
 > **A comprehensive, industry-standard roadmap for aspiring DevOps Engineers, Cloud Engineers, and SREs in 2025**
 
@@ -18,18 +19,26 @@ This repository contains a complete, interactive learning roadmap covering every
 
 ---
 
+## 🌐 Quick Links
+
+| Link | Description |
+|------|-------------|
+| 📱 [**Live Roadmap**](https://hashimthepassionate.github.io/devops-sre-cloud-roadmap/DevOps-SRE-Cloud-roadmap.html) | Interactive roadmap with dark mode & diagrams |
+| 📂 [Source Code](https://github.com/HashimThePassionate/devops-sre-cloud-roadmap) | GitHub repository |
+| 🤝 [Contributing Guide](CONTRIBUTING.md) | How to contribute |
+
+
+---
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
-- [Features](#-features)
-- [What's Included](#-whats-included)
 - [Learning Path](#-learning-path)
 - [Technologies Covered](#-technologies-covered)
 - [Career Paths](#-career-paths)
 - [Getting Started](#-getting-started)
 - [How to Use](#-how-to-use)
 - [Roadmap Structure](#-roadmap-structure)
-- [Interactive Features](#-interactive-features)
 - [Certification Guidance](#-certification-guidance)
 - [Contributing](#-contributing)
 - [Support](#-support)
@@ -52,63 +61,6 @@ This roadmap is designed to guide you from **absolute beginner to job-ready** in
 
 ---
 
-## ✨ Features
-
-### 📱 **Fully Responsive Design**
-- Mobile-first design starting from **350px** devices
-- Optimized for smartphones, tablets, and desktops
-- Touch-friendly interface
-
-### 🌙 **Dark Mode Support**
-- Beautiful dark theme for comfortable reading
-- Persistent theme preference
-- One-click toggle
-
-### 📊 **Interactive Visualizations**
-- **20+ High-Quality SVG Diagrams**
-- CI/CD Pipeline Architecture
-- Kubernetes Architecture
-- Service Mesh (Istio) Architecture
-- Observability Architecture
-- Career Path Diagrams
-- And many more!
-
-### 📄 **PDF Export Ready**
-- Print-optimized styles
-- Professional formatting
-- One-click PDF download
-
-### 📈 **Progress Tracking**
-- Visual progress bar
-- Section completion tracking
-- Learning timeline
-
-### 🎓 **Comprehensive Certification Guidance**
-- 50+ certifications mapped to skills
-- Priority levels (HIGH/MEDIUM/LOW)
-- Certification roadmap by role
-
----
-
-## 📦 What's Included
-
-1. **Complete HTML Document** (`DevOps-SRE-Cloud-roadmap.html`)
-   - Self-contained single file
-   - No external dependencies
-   - Works offline
-   - Responsive design
-   - Dark mode support
-
-2. **Detailed README** (This file)
-   - Setup instructions
-   - Learning guidance
-   - Contribution guidelines
-
-3. **Source Markdown** (`career.md`)
-   - Original content source
-   - Easy to update and contribute
-
----
 
 ## 🗺️ Learning Path
 
@@ -289,20 +241,26 @@ This roadmap supports three main career paths:
 
 ### **Installation**
 
-#### **Option 1: Direct Download**
+#### **Option 1: View Online (Recommended)** 🌐
+**🔗 [Click here to view the live interactive roadmap](https://hashimthepassionate.github.io/devops-sre-cloud-roadmap/DevOps-SRE-Cloud-roadmap.html)**
+
+No installation needed! Access the roadmap directly in your browser with:
+- ✅ Full interactivity
+- ✅ Dark mode support
+- ✅ Mobile responsive design
+- ✅ All diagrams and features
+
+#### **Option 2: Download Locally**
 1. Download the `DevOps-SRE-Cloud-roadmap.html` file
 2. Open it in your browser
-3. Start learning!
+3. Use offline anytime!
 
-#### **Option 2: Clone Repository**
+#### **Option 3: Clone Repository**
 ```bash
-git clone https://github.com/yourusername/devops-roadmap-2025.git
-cd devops-roadmap-2025
+git clone https://github.com/HashimThePassionate/devops-sre-cloud-roadmap.git
+cd devops-sre-cloud-roadmap
 # Open DevOps-SRE-Cloud-roadmap.html in your browser
 ```
-
-#### **Option 3: GitHub Pages**
-Visit: [https://yourusername.github.io/devops-roadmap-2025/DevOps-SRE-Cloud-roadmap.html](https://yourusername.github.io/devops-roadmap-2025/DevOps-SRE-Cloud-roadmap.html)
 
 ---
 
@@ -377,32 +335,6 @@ Visit: [https://yourusername.github.io/devops-roadmap-2025/DevOps-SRE-Cloud-road
 - Market Trends 2025
 - Pro Tips & Best Practices
 
----
-
-## 🎨 Interactive Features
-
-### **Dark Mode** 🌙
-- Comfortable reading in low-light environments
-- Reduces eye strain
-- Automatically saves your preference
-- Toggle anytime with one click
-
-### **Progress Bar** 📊
-- Visual indicator of page progress
-- Shows completion percentage
-- Smooth animations
-
-### **Sticky Navigation** 📍
-- Always accessible header
-- Quick navigation to top
-- Responsive design
-
-### **Responsive Design** 📱
-- **350px - 400px:** Very small devices
-- **401px - 480px:** Small smartphones
-- **481px - 767px:** Standard smartphones
-- **768px - 1024px:** Tablets
-- **1025px+:** Desktops
 
 ---
 
@@ -594,10 +526,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📞 Contact & Connect
 
-- **GitHub:** [@yourusername](https://github.com/yourusername)
-- **Twitter:** [@yourusername](https://twitter.com/yourusername)
-- **LinkedIn:** [Your Name](https://linkedin.com/in/yourname)
-- **Email:** your.email@example.com
+- **GitHub:** [@HashimThePassionate](https://github.com/HashimThePassionate)
+- **Repository:** [DevOps SRE Cloud Roadmap](https://github.com/HashimThePassionate/devops-sre-cloud-roadmap)
+- **Live Roadmap:** [View Interactive Version](https://hashimthepassionate.github.io/devops-sre-cloud-roadmap/DevOps-SRE-Cloud-roadmap.html)
 
 ---
 
@@ -615,11 +546,11 @@ If this roadmap helped you, please consider:
 
 ### 🚀 **Start Your DevOps Journey Today!** 🚀
 
-**[View Roadmap](DevOps-SRE-Cloud-roadmap.html)** | **[Contribute](#contributing)** | **[Get Support](#support)**
+**[📱 View Live Roadmap](https://hashimthepassionate.github.io/devops-sre-cloud-roadmap/DevOps-SRE-Cloud-roadmap.html)** | **[🤝 Contribute](CONTRIBUTING.md)** | **[💬 Get Support](https://github.com/HashimThePassionate/devops-sre-cloud-roadmap/issues)**
 
 ---
 
-Made with ❤️ by the DevOps Community
+Made with ❤️
 
 **Last Updated:** October 2025
 
