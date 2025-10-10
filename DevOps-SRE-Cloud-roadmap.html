@@ -74,12 +74,16 @@
 
         /* ==================== HEADER ==================== */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white;
-            padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+            padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 3vw, 2rem);
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header::before {
@@ -89,27 +93,101 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
             pointer-events: none;
         }
 
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-main), transparent);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+        }
+
         .header h1 {
-            font-size: clamp(1.75rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 6vw, 4.5rem);
             font-weight: 900;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
             position: relative;
             z-index: 1;
             letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .header h1::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, #fff, transparent);
+            margin: 1.5rem auto 0;
+            border-radius: 10px;
         }
 
         .header p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
             opacity: 0.95;
             position: relative;
             z-index: 1;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .header-badge:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                min-height: 350px;
+                padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 3vw, 2rem);
+            }
+            
+            .header-badges {
+                gap: 0.5rem;
+            }
+            
+            .header-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
         }
 
         /* ==================== THEME TOGGLE ==================== */
@@ -146,34 +224,117 @@
             }
         }
 
+        /* ==================== BACK TO TOP BUTTON ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(100px);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* ==================== ANIMATIONS (Minimal - Only Essential) ==================== */
+        @keyframes headerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
         /* ==================== CONTAINER ==================== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: clamp(1rem, 3vw, 3rem);
+            overflow: visible;
         }
 
         /* ==================== TABLE OF CONTENTS ==================== */
         .toc {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
-            border-radius: 20px;
-            padding: clamp(1.5rem, 3vw, 2.5rem);
+            background: linear-gradient(135deg, 
+                rgba(99, 102, 241, 0.08) 0%, 
+                rgba(139, 92, 246, 0.08) 50%,
+                rgba(236, 72, 153, 0.08) 100%);
+            border-radius: 25px;
+            padding: clamp(2rem, 4vw, 3rem);
             margin: clamp(2rem, 4vw, 3rem) 0;
-            border: 2px solid var(--border);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .toc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .toc h2 {
             color: var(--primary);
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 800;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 900;
             text-align: center;
-            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: clamp(2rem, 4vw, 2.5rem);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+            letter-spacing: -0.5px;
         }
 
         .toc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: clamp(1rem, 2vw, 1.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1.25rem, 2.5vw, 2rem);
         }
 
         @media (max-width: 767px) {
@@ -184,59 +345,125 @@
 
         .toc-item {
             background: var(--bg-card);
-            padding: clamp(1rem, 2vw, 1.5rem);
-            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: 18px;
             border: 2px solid var(--border);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: visible;
+            z-index: 1;
+        }
+
+        .toc-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .toc-item:hover::before {
+            transform: scaleX(1);
         }
 
         .toc-item:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
             border-color: var(--primary);
+            background: linear-gradient(135deg, 
+                rgba(99, 102, 241, 0.05) 0%, 
+                rgba(139, 92, 246, 0.05) 100%);
+            z-index: 2;
         }
 
+        .toc-item:nth-child(1) { animation-delay: 0.1s; }
+        .toc-item:nth-child(2) { animation-delay: 0.2s; }
+        .toc-item:nth-child(3) { animation-delay: 0.3s; }
+        .toc-item:nth-child(4) { animation-delay: 0.4s; }
+        .toc-item:nth-child(5) { animation-delay: 0.5s; }
+
         .toc-item h4 {
-            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            font-size: clamp(1.25rem, 2.8vw, 1.5rem);
             color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            font-weight: 700;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
         }
 
         .toc-item ul {
             list-style: none;
             padding: 0;
+            margin-top: 1rem;
         }
 
         .toc-item li {
-            margin: 0.5rem 0;
+            margin: 0.65rem 0;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .toc-item:hover li {
+            transform: translateX(5px);
         }
 
         .toc-item a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: all 0.3s ease;
+            font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .toc-item a::before {
+            content: '▶';
+            font-size: 0.7em;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .toc-item a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .toc-item a:hover {
             color: var(--primary);
+            padding-left: 0.5rem;
+            font-weight: 600;
         }
 
         /* ==================== PHASE SECTIONS ==================== */
         .phase {
             margin-bottom: clamp(2rem, 4vw, 4rem);
             border-radius: 20px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: var(--shadow-md);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
             background: var(--bg-card);
             border: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
         }
 
         .phase:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            z-index: 2;
         }
 
         .phase-header {
@@ -253,6 +480,8 @@
             cursor: pointer;
             user-select: none;
             position: relative;
+            border-radius: 20px 20px 0 0;
+            z-index: 1;
         }
 
         .phase-header::after {
@@ -286,7 +515,7 @@
         .phase-content {
             padding: clamp(1.5rem, 3vw, 2.5rem);
             max-height: 10000px;
-            overflow: hidden;
+            overflow: visible;
             transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                         padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                         opacity 0.3s ease;
@@ -298,6 +527,7 @@
             padding-top: 0;
             padding-bottom: 0;
             opacity: 0;
+            overflow: hidden;
         }
 
         /* ==================== SECTIONS ==================== */
@@ -308,6 +538,9 @@
             background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
             border-radius: 0 12px 12px 0;
             padding: clamp(1rem, 2vw, 1.5rem);
+            overflow: visible;
+            position: relative;
+            z-index: 1;
         }
 
         .section-header {
@@ -315,6 +548,7 @@
             user-select: none;
             position: relative;
             padding-right: 2rem;
+            z-index: 1;
         }
 
         .section-header::after {
@@ -338,7 +572,7 @@
 
         .section-body {
             max-height: 10000px;
-            overflow: hidden;
+            overflow: visible;
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                         opacity 0.3s ease;
             opacity: 1;
@@ -347,6 +581,7 @@
         .section-body.collapsed {
             max-height: 0;
             opacity: 0;
+            overflow: hidden;
         }
 
         .section h3 {
@@ -374,6 +609,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: clamp(1rem, 2.5vw, 1.5rem);
             margin: clamp(1.5rem, 3vw, 2rem) 0;
+            overflow: visible;
         }
 
         @media (max-width: 767px) {
@@ -388,9 +624,10 @@
             border-radius: 16px;
             padding: clamp(1.25rem, 3vw, 1.75rem);
             box-shadow: var(--shadow-sm);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            z-index: 1;
         }
 
         .skill-card::before {
@@ -402,13 +639,15 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
+            z-index: -1;
         }
 
         .skill-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-lg);
             border-color: var(--primary);
+            z-index: 2;
         }
 
         .skill-card:hover::before {
@@ -501,6 +740,225 @@
             max-width: 100%;
             height: auto;
             display: block;
+        }
+
+        /* ==================== CAREER PATH CARDS ==================== */
+        .career-paths-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .career-foundation-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .foundation-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .foundation-icon {
+            font-size: 3rem;
+        }
+
+        .foundation-badge h3 {
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .foundation-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .foundation-skill {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .foundation-skill:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .foundation-arrow {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .choose-path-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .choose-path-card h3 {
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 900;
+            margin: 0 0 0.75rem 0;
+            letter-spacing: 1px;
+        }
+
+        .choose-path-card p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .career-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .career-options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .career-card {
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: visible;
+            border: 3px solid transparent;
+            z-index: 1;
+        }
+
+        .devops-card {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .cloud-card {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        .sre-card {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        }
+
+        .career-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .career-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            z-index: 2;
+        }
+
+        .career-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .career-icon {
+            font-size: 2.5rem;
+        }
+
+        .career-card-header h3 {
+            color: white;
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .career-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .career-skills {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .career-skills li {
+            color: white;
+            font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+            padding: 0.5rem 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .career-salary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 0.75rem 1.25rem;
+            color: white;
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .career-badge {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* ==================== HIGHLIGHT BOX ==================== */
@@ -669,15 +1127,25 @@
 </head>
 <body>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
     
-    <div class="header">
-        <h2>Complete DevOps, Cloud & SRE Roadmap 2025 🚀 </h2>
+    <div class="header" id="top">
+        <div class="header-content">
+            <h1>Complete DevOps, Cloud & SRE Roadmap 2025   ⋆˙⟡</h1>
+            <p>Master DevOps, Cloud Architecture & Site Reliability Engineering - Your Complete Guide from Zero to Hero!</p>
+            <div class="header-badges">
+                <span class="header-badge">✅ 100+ Tools & Technologies</span>
+                <span class="header-badge">🎯 Production-Ready Skills</span>
+                <span class="header-badge">📚 Industry Best Practices</span>
+                <span class="header-badge">🏆 Top Certifications</span>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <!-- Table of Contents -->
         <div class="toc">
-            <h2>📋 Table of Contents</h2>
+            <h2>📋 Complete Learning Roadmap</h2>
             <div class="toc-grid">
                 <div class="toc-item">
                     <h4>🚀 Foundation Phase</h4>
@@ -687,6 +1155,7 @@
                         <li><a href="#networking">Networking Fundamentals</a></li>
                         <li><a href="#programming">Programming & Scripting</a></li>
                         <li><a href="#version-control">Version Control (Git)</a></li>
+                        <li><a href="#system-design">System Design Fundamentals</a></li>
                         <li><a href="#ci-cd">CI/CD Pipeline</a></li>
                     </ul>
                 </div>
@@ -711,7 +1180,7 @@
                     </ul>
                 </div>
                 <div class="toc-item">
-                    <h4>🎯 SRE & Advanced</h4>
+                    <h4>🎯 SRE & Advanced Topics</h4>
                     <ul>
                         <li><a href="#sre">SRE Principles</a></li>
                         <li><a href="#platform-engineering">Platform Engineering</a></li>
@@ -721,11 +1190,11 @@
                     </ul>
                 </div>
                 <div class="toc-item">
-                    <h4>📚 Career & Learning</h4>
+                    <h4>📚 Career & Learning Path</h4>
                     <ul>
                         <li><a href="#timeline">Learning Timeline</a></li>
-                        <li><a href="#tips">Pro Tips</a></li>
-                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#resources">Learning Resources</a></li>
+                        <li><a href="#tips">Career Tips & Interview Prep</a></li>
                     </ul>
                 </div>
             </div>
@@ -739,79 +1208,119 @@
                 </div>
             </div>
             <div class="phase-content">
-                <div class="svg-container">
-                    <svg viewBox="0 0 1000 650" style="width: 100%; height: auto;">
-                        <defs>
-                            <linearGradient id="foundationGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="devopsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="sreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
-                            </linearGradient>
-                            <filter id="shadow">
-                                <feDropShadow dx="2" dy="2" stdDeviation="4" flood-opacity="0.2"/>
-                            </filter>
-                            <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
-                                <polygon points="0 0, 12 6, 0 12" fill="#6366f1"/>
-                            </marker>
-                        </defs>
-                        
-                        <!-- Foundation Box -->
-                        <rect x="325" y="40" width="350" height="110" rx="20" fill="url(#foundationGrad)" filter="url(#shadow)" stroke="#1e40af" stroke-width="3"/>
-                        <text x="500" y="90" text-anchor="middle" fill="white" font-size="28" font-weight="700">🎯 FUNDAMENTALS</text>
-                        <text x="500" y="125" text-anchor="middle" fill="white" font-size="16" font-weight="600">Linux • Git • Networking • Programming</text>
-                        
-                        <!-- Arrow -->
-                        <line x1="500" y1="150" x2="500" y2="210" stroke="#6366f1" stroke-width="5" marker-end="url(#arrowhead)"/>
-                        
-                        <!-- Path Selection Box -->
-                        <rect x="300" y="210" width="400" height="110" rx="20" fill="url(#pathGrad)" filter="url(#shadow)" stroke="#047857" stroke-width="3"/>
-                        <text x="500" y="260" text-anchor="middle" fill="white" font-size="28" font-weight="700">🚀 CHOOSE YOUR PATH</text>
-                        <text x="500" y="295" text-anchor="middle" fill="white" font-size="16" font-weight="600">Specialize in your preferred domain</text>
-                        
-                        <!-- Arrows to Paths -->
-                        <line x1="400" y1="320" x2="200" y2="400" stroke="#6366f1" stroke-width="5" marker-end="url(#arrowhead)"/>
-                        <line x1="500" y1="320" x2="500" y2="400" stroke="#6366f1" stroke-width="5" marker-end="url(#arrowhead)"/>
-                        <line x1="600" y1="320" x2="800" y2="400" stroke="#6366f1" stroke-width="5" marker-end="url(#arrowhead)"/>
-                        
-                        <!-- DevOps Path -->
-                        <rect x="50" y="400" width="300" height="200" rx="20" fill="url(#devopsGrad)" filter="url(#shadow)" stroke="#b45309" stroke-width="3"/>
-                        <text x="200" y="440" text-anchor="middle" fill="white" font-size="22" font-weight="700">👨‍💻 DevOps Engineer</text>
-                        <text x="200" y="475" text-anchor="middle" fill="white" font-size="15" font-weight="600">CI/CD & Automation</text>
-                        <text x="200" y="510" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Jenkins/GitLab CI</text>
-                        <text x="200" y="540" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Docker & Kubernetes</text>
-                        <text x="200" y="570" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Infrastructure as Code</text>
-                        
-                        <!-- Cloud Path -->
-                        <rect x="375" y="400" width="250" height="200" rx="20" fill="url(#cloudGrad)" filter="url(#shadow)" stroke="#6b21a8" stroke-width="3"/>
-                        <text x="500" y="440" text-anchor="middle" fill="white" font-size="22" font-weight="700">☁️ Cloud Engineer</text>
-                        <text x="500" y="475" text-anchor="middle" fill="white" font-size="15" font-weight="600">Cloud Architecture</text>
-                        <text x="500" y="510" text-anchor="middle" fill="white" font-size="14" font-weight="500">• AWS/Azure/GCP</text>
-                        <text x="500" y="540" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Cloud Migration</text>
-                        <text x="500" y="570" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Cost Optimization</text>
-                        
-                        <!-- SRE Path -->
-                        <rect x="650" y="400" width="300" height="200" rx="20" fill="url(#sreGrad)" filter="url(#shadow)" stroke="#be185d" stroke-width="3"/>
-                        <text x="800" y="440" text-anchor="middle" fill="white" font-size="22" font-weight="700">🎯 SRE Engineer</text>
-                        <text x="800" y="475" text-anchor="middle" fill="white" font-size="15" font-weight="600">Reliability & Monitoring</text>
-                        <text x="800" y="510" text-anchor="middle" fill="white" font-size="14" font-weight="500">• SLOs & Error Budgets</text>
-                        <text x="800" y="540" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Incident Management</text>
-                        <text x="800" y="570" text-anchor="middle" fill="white" font-size="14" font-weight="500">• Chaos Engineering</text>
-                    </svg>
+                <div class="highlight-box" style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem;">🎯 Your DevOps Journey</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                        Start with <strong style="color: var(--primary);">strong fundamentals</strong> in Linux, networking, and programming. 
+                        Then choose your specialization based on your interests and career goals. All paths are in high demand with 
+                        <strong style="color: var(--success);">excellent salaries</strong> and growth opportunities! 🚀
+                    </p>
+                </div>
+
+                <!-- Career Path Cards -->
+                <div class="career-paths-grid">
+                    <!-- Foundation Card -->
+                    <div class="career-foundation-card">
+                        <div class="foundation-badge">
+                            <span class="foundation-icon">🎯</span>
+                            <h3>BUILD STRONG FOUNDATION</h3>
+                        </div>
+                        <div class="foundation-skills">
+                            <span class="foundation-skill">Linux</span>
+                            <span class="foundation-skill">Git</span>
+                            <span class="foundation-skill">Networking</span>
+                            <span class="foundation-skill">Programming</span>
+                            <span class="foundation-skill">System Design</span>
+                        </div>
+                        <div class="foundation-arrow">⬇</div>
+                    </div>
+
+                    <!-- Choose Path Card -->
+                    <div class="choose-path-card">
+                        <h3>🚀 CHOOSE YOUR SPECIALIZATION</h3>
+                        <p>Select the career path that aligns with your passion and goals</p>
+                    </div>
+
+                    <!-- Career Path Options -->
+                    <div class="career-options-grid">
+                        <!-- DevOps Engineer -->
+                        <div class="career-card devops-card">
+                            <div class="career-card-header">
+                                <span class="career-icon">👨‍💻</span>
+                                <h3>DevOps Engineer</h3>
+                            </div>
+                            <div class="career-subtitle">CI/CD & Automation Expert</div>
+                            <ul class="career-skills">
+                                <li>✓ Jenkins/GitHub Actions</li>
+                                <li>✓ Docker & Kubernetes</li>
+                                <li>✓ Terraform & Ansible</li>
+                                <li>✓ Monitoring & Logging</li>
+                            </ul>
+                            <div class="career-salary">💰 $90K - $180K/year</div>
+                            <div class="career-badge">High Demand</div>
+                        </div>
+
+                        <!-- Cloud Engineer -->
+                        <div class="career-card cloud-card">
+                            <div class="career-card-header">
+                                <span class="career-icon">☁️</span>
+                                <h3>Cloud Engineer</h3>
+                            </div>
+                            <div class="career-subtitle">Cloud Architecture</div>
+                            <ul class="career-skills">
+                                <li>✓ AWS/Azure/GCP</li>
+                                <li>✓ Cloud Migration</li>
+                                <li>✓ Cost Optimization</li>
+                                <li>✓ Security & Compliance</li>
+                            </ul>
+                            <div class="career-salary">💰 $95K - $190K/year</div>
+                            <div class="career-badge">Top Paying</div>
+                        </div>
+
+                        <!-- SRE Engineer -->
+                        <div class="career-card sre-card">
+                            <div class="career-card-header">
+                                <span class="career-icon">🎯</span>
+                                <h3>SRE Engineer</h3>
+                            </div>
+                            <div class="career-subtitle">Reliability & Monitoring</div>
+                            <ul class="career-skills">
+                                <li>✓ SLOs & Error Budgets</li>
+                                <li>✓ Incident Management</li>
+                                <li>✓ Chaos Engineering</li>
+                                <li>✓ Performance Tuning</li>
+                            </ul>
+                            <div class="career-salary">💰 $100K - $200K/year</div>
+                            <div class="career-badge">Elite Role</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Stats Cards -->
+                <div class="skills-grid" style="margin-top: 2rem;">
+                    <div class="skill-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); border-color: var(--primary);">
+                        <div class="skill-title">📈 Market Demand</div>
+                        <p style="margin-top: 0.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            DevOps & Cloud roles grew by <strong style="color: var(--success);">45% in 2024</strong>. 
+                            Companies are actively hiring with competitive packages!
+                        </p>
+                    </div>
+                    <div class="skill-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1)); border-color: var(--success);">
+                        <div class="skill-title">💼 Job Titles</div>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.2rem; color: var(--text-secondary);">
+                            <li>DevOps Engineer</li>
+                            <li>Cloud Architect</li>
+                            <li>SRE Engineer</li>
+                            <li>Platform Engineer</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1)); border-color: var(--accent);">
+                        <div class="skill-title">🌍 Work Style</div>
+                        <p style="margin-top: 0.5rem; color: var(--text-secondary); line-height: 1.6;">
+                            <strong style="color: var(--primary);">95%</strong> of DevOps roles offer remote/hybrid work. 
+                            Work from anywhere! 🏡
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -874,6 +1383,17 @@ chmod, chown, umask</div>
                             <span class="cert-priority priority-medium">MED</span>
                             <strong>Red Hat Certified System Administrator (RHCSA)</strong>
                         </div>
+                    </div>
+
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "The Linux Command Line"</strong> by William Shotts - Best for beginners</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Linux Pocket Guide"</strong> by Daniel J. Barrett (O'Reilly) - Quick reference</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "How Linux Works"</strong> by Brian Ward - Deep understanding</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Linux Administration: A Beginner's Guide"</strong> by Wale Soyinka (McGraw-Hill)</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "Unix and Linux System Administration Handbook"</strong> by Evi Nemeth - Industry standard</li>
+                        </ul>
                     </div>
 
                     <div class="timeline-item">
@@ -1042,6 +1562,244 @@ chmod, chown, umask</div>
 
                     <div class="timeline-item">
                         <span class="timeline-duration">⏱️ Time: 1-2 weeks</span>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- System Design Fundamentals -->
+                <div class="section" id="system-design">
+                    <h3 class="section-header" onclick="toggleSection(this)"><span class="icon">🏗️</span> 5. System Design Fundamentals</h3>
+                    
+                    <div class="section-body">
+                    <div class="why-section">
+                        <strong>Why Essential:</strong> Understanding system design is critical for building scalable, reliable infrastructure and troubleshooting production issues
+                    </div>
+
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">📈 Scalability</div>
+                            <ul>
+                                <li><strong>Vertical Scaling:</strong> Add more power (CPU/RAM)</li>
+                                <li><strong>Horizontal Scaling:</strong> Add more servers</li>
+                                <li><strong>Auto-scaling:</strong> Dynamic resource allocation</li>
+                                <li><strong>Stateless vs Stateful:</strong> Design patterns</li>
+                                <li>Database scaling (Read replicas, Sharding)</li>
+                                <li>CDN for static content delivery</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">⚖️ Load Balancing</div>
+                            <ul>
+                                <li><strong>Layer 4 (Transport):</strong> TCP/UDP load balancing</li>
+                                <li><strong>Layer 7 (Application):</strong> HTTP/HTTPS routing</li>
+                                <li><strong>Algorithms:</strong> Round Robin, Least Connections, IP Hash</li>
+                                <li><strong>Health Checks:</strong> Active/Passive monitoring</li>
+                                <li><strong>Tools:</strong> HAProxy, Nginx, AWS ELB/ALB/NLB</li>
+                                <li>Session persistence (Sticky sessions)</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">⚡ Caching Strategies</div>
+                            <ul>
+                                <li><strong>Cache-Aside:</strong> Application manages cache</li>
+                                <li><strong>Write-Through:</strong> Write to cache & DB</li>
+                                <li><strong>Write-Back:</strong> Write to cache first</li>
+                                <li><strong>Redis:</strong> In-memory data store</li>
+                                <li><strong>Memcached:</strong> High-performance caching</li>
+                                <li><strong>CDN Caching:</strong> CloudFront, Cloudflare</li>
+                                <li>Cache invalidation strategies</li>
+                                <li>TTL (Time To Live) management</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🗄️ Database Design</div>
+                            <ul>
+                                <li><strong>SQL (Relational):</strong> PostgreSQL, MySQL, Oracle</li>
+                                <li><strong>NoSQL Types:</strong>
+                                    <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                                        <li>• Document: MongoDB, CouchDB</li>
+                                        <li>• Key-Value: Redis, DynamoDB</li>
+                                        <li>• Column: Cassandra, HBase</li>
+                                        <li>• Graph: Neo4j, Amazon Neptune</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Database Sharding:</strong> Horizontal partitioning</li>
+                                <li><strong>Replication:</strong> Master-Slave, Multi-Master</li>
+                                <li>Indexing strategies</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔺 CAP Theorem</div>
+                            <ul>
+                                <li><strong>C - Consistency:</strong> All nodes see same data</li>
+                                <li><strong>A - Availability:</strong> System always responds</li>
+                                <li><strong>P - Partition Tolerance:</strong> Works despite network failures</li>
+                                <li><strong>Trade-off:</strong> Can only guarantee 2 of 3</li>
+                                <li><strong>CP Systems:</strong> MongoDB, HBase</li>
+                                <li><strong>AP Systems:</strong> Cassandra, DynamoDB</li>
+                                <li><strong>CA Systems:</strong> Traditional RDBMS (rare in distributed)</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔧 Microservices Architecture</div>
+                            <ul>
+                                <li><strong>Service Independence:</strong> Loose coupling</li>
+                                <li><strong>API Gateway:</strong> Kong, AWS API Gateway</li>
+                                <li><strong>Service Discovery:</strong> Consul, Eureka</li>
+                                <li><strong>Communication:</strong> REST, gRPC, GraphQL</li>
+                                <li><strong>Async Messaging:</strong> Event-driven architecture</li>
+                                <li>Circuit Breaker pattern (Hystrix, Resilience4j)</li>
+                                <li>Saga pattern for distributed transactions</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔌 API Design Patterns</div>
+                            <ul>
+                                <li><strong>REST:</strong> Stateless, HTTP methods</li>
+                                <li><strong>GraphQL:</strong> Query language for APIs</li>
+                                <li><strong>gRPC:</strong> High-performance RPC framework</li>
+                                <li><strong>WebSockets:</strong> Real-time bidirectional communication</li>
+                                <li><strong>Rate Limiting:</strong> Throttling requests</li>
+                                <li><strong>API Versioning:</strong> URI, Header, Content negotiation</li>
+                                <li>Authentication: OAuth2, JWT, API Keys</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📨 Message Queues & Streaming</div>
+                            <ul>
+                                <li><strong>RabbitMQ:</strong> Message broker (AMQP)</li>
+                                <li><strong>Apache Kafka:</strong> Distributed streaming platform</li>
+                                <li><strong>AWS SQS/SNS:</strong> Managed queue/pub-sub</li>
+                                <li><strong>Redis Pub/Sub:</strong> Lightweight messaging</li>
+                                <li><strong>Patterns:</strong> Publisher-Subscriber, Point-to-Point</li>
+                                <li>Event sourcing & CQRS</li>
+                                <li>Dead letter queues (DLQ)</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🌐 Distributed Systems Concepts</div>
+                            <ul>
+                                <li><strong>Consistency Models:</strong> Strong, Eventual, Causal</li>
+                                <li><strong>Consensus Algorithms:</strong> Raft, Paxos</li>
+                                <li><strong>Distributed Locks:</strong> Redis, ZooKeeper</li>
+                                <li><strong>Idempotency:</strong> Safe retry mechanisms</li>
+                                <li><strong>Two-Phase Commit:</strong> Distributed transactions</li>
+                                <li>Vector clocks & conflict resolution</li>
+                                <li>Gossip protocol</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🛡️ Reliability Patterns</div>
+                            <ul>
+                                <li><strong>Circuit Breaker:</strong> Prevent cascading failures</li>
+                                <li><strong>Retry with Backoff:</strong> Exponential backoff</li>
+                                <li><strong>Bulkhead:</strong> Isolate resources</li>
+                                <li><strong>Timeout:</strong> Prevent hanging requests</li>
+                                <li><strong>Rate Limiting:</strong> Token bucket, Leaky bucket</li>
+                                <li><strong>Health Checks:</strong> Readiness & Liveness probes</li>
+                                <li>Graceful degradation</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📊 Data Partitioning</div>
+                            <ul>
+                                <li><strong>Horizontal Partitioning (Sharding):</strong> Split by rows</li>
+                                <li><strong>Vertical Partitioning:</strong> Split by columns</li>
+                                <li><strong>Range-based:</strong> Partition by value ranges</li>
+                                <li><strong>Hash-based:</strong> Consistent hashing</li>
+                                <li><strong>Directory-based:</strong> Lookup service</li>
+                                <li>Shard rebalancing strategies</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔍 Monitoring & Observability</div>
+                            <ul>
+                                <li><strong>Metrics:</strong> RED (Rate, Errors, Duration)</li>
+                                <li><strong>Logs:</strong> Centralized logging (ELK stack)</li>
+                                <li><strong>Traces:</strong> Distributed tracing (Jaeger, Zipkin)</li>
+                                <li><strong>APM:</strong> Application Performance Monitoring</li>
+                                <li><strong>Alerting:</strong> Threshold-based, Anomaly detection</li>
+                                <li>SLI, SLO, SLA definitions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Real-World System Design Examples</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 URL Shortener (like bit.ly):</strong> Hashing, Database design, Caching</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 Social Media Feed (like Twitter):</strong> Fan-out, Timeline generation, Caching</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 Video Streaming (like Netflix):</strong> CDN, Adaptive bitrate, Content encoding</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 E-commerce (like Amazon):</strong> Inventory management, Payment processing, Order fulfillment</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 Chat Application (like WhatsApp):</strong> WebSockets, Message queues, Presence system</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔹 Ride Sharing (like Uber):</strong> Geospatial indexing, Matching algorithm, Real-time tracking</li>
+                            <li style="padding: 0.75rem 0;"><strong>🔹 Search Engine (like Google):</strong> Web crawling, Indexing, Ranking algorithm, Distributed storage</li>
+                        </ul>
+                    </div>
+
+                    <h4>🛠️ Key Technologies & Tools</h4>
+                    <div class="tool-list">
+                        <span class="tool-tag">Redis <span class="hot-tag">⚡ HOT</span></span>
+                        <span class="tool-tag">Kafka</span>
+                        <span class="tool-tag">RabbitMQ</span>
+                        <span class="tool-tag">MongoDB</span>
+                        <span class="tool-tag">PostgreSQL</span>
+                        <span class="tool-tag">Nginx</span>
+                        <span class="tool-tag">HAProxy</span>
+                        <span class="tool-tag">Consul</span>
+                        <span class="tool-tag">Elasticsearch</span>
+                        <span class="tool-tag">Cassandra</span>
+                    </div>
+
+                    <h4>📚 Learning Resources</h4>
+                    <div class="highlight-box">
+                        <strong>📖 Recommended Books:</strong>
+                        <ul>
+                            <li><strong>"Designing Data-Intensive Applications"</strong> by Martin Kleppmann</li>
+                            <li><strong>"System Design Interview"</strong> by Alex Xu (Volumes 1 & 2)</li>
+                            <li><strong>"Building Microservices"</strong> by Sam Newman</li>
+                            <li><strong>"Site Reliability Engineering"</strong> by Google</li>
+                        </ul>
+                        <strong>🌐 Online Resources:</strong>
+                        <ul>
+                            <li>System Design Primer (GitHub repository)</li>
+                            <li>ByteByteGo (YouTube channel)</li>
+                            <li>Gaurav Sen System Design (YouTube)</li>
+                            <li>High Scalability Blog</li>
+                        </ul>
+                    </div>
+
+                    <div class="certifications">
+                        <h4>🏆 Recommended Certifications</h4>
+                        <div class="cert-grid">
+                            <div class="cert-item">
+                                <span class="cert-priority priority-high">HIGH</span>
+                                <strong>AWS Certified Solutions Architect - Associate</strong>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-priority priority-high">HIGH</span>
+                                <strong>Google Cloud Professional Cloud Architect</strong>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-priority priority-medium">MED</span>
+                                <strong>Microsoft Certified: Azure Solutions Architect Expert</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-duration">⏱️ Time: 6-8 weeks (Ongoing learning)</span>
                     </div>
                     </div>
                 </div>
@@ -1229,24 +1987,126 @@ chmod, chown, umask</div>
                         <div class="skill-card">
                             <div class="skill-title">📚 Core Concepts</div>
                             <ul>
-                                <li>Images & Containers</li>
-                                <li>Dockerfile creation</li>
-                                <li>Container networking</li>
-                                <li>Volume management</li>
-                                <li>Docker Compose</li>
-                                <li>Multi-stage builds</li>
+                                <li><strong>Images & Containers:</strong> Build, run, manage</li>
+                                <li><strong>Dockerfile:</strong> Best practices, layer optimization</li>
+                                <li><strong>Container Networking:</strong> Bridge, host, overlay, none</li>
+                                <li><strong>Volume Management:</strong> Bind mounts, volumes, tmpfs</li>
+                                <li><strong>Docker Compose:</strong> Multi-container orchestration</li>
+                                <li><strong>Container lifecycle:</strong> Create, start, stop, remove</li>
                             </ul>
                         </div>
 
                         <div class="skill-card">
-                            <div class="skill-title">🔧 Advanced Topics</div>
+                            <div class="skill-title">🏗️ Multi-Stage Builds</div>
                             <ul>
-                                <li>Container registries (Docker Hub, ECR)</li>
-                                <li>Image optimization</li>
-                                <li>Security best practices</li>
-                                <li>Container orchestration basics</li>
+                                <li><strong>Build optimization:</strong> Reduce image size</li>
+                                <li><strong>Build context:</strong> .dockerignore usage</li>
+                                <li><strong>Layer caching:</strong> Optimize build speed</li>
+                                <li><strong>BuildKit:</strong> Advanced build features</li>
+                                <li><strong>Example:</strong> Builder pattern for Go/Java apps</li>
+                                <li>Separate build & runtime dependencies</li>
                             </ul>
                         </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">� Docker Security</div>
+                            <ul>
+                                <li><strong>Image Scanning:</strong> Trivy, Snyk, Clair</li>
+                                <li><strong>User Namespaces:</strong> Run as non-root</li>
+                                <li><strong>Security Options:</strong> AppArmor, SELinux, Seccomp</li>
+                                <li><strong>Content Trust:</strong> Image signing (Notary)</li>
+                                <li><strong>Secrets Management:</strong> Docker secrets</li>
+                                <li><strong>Network Isolation:</strong> Custom networks</li>
+                                <li>Minimal base images (Alpine, Distroless)</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📦 Container Registries</div>
+                            <ul>
+                                <li><strong>Docker Hub:</strong> Public registry</li>
+                                <li><strong>Amazon ECR:</strong> AWS native</li>
+                                <li><strong>Google GCR/Artifact Registry:</strong> GCP</li>
+                                <li><strong>Azure ACR:</strong> Azure Container Registry</li>
+                                <li><strong>Harbor:</strong> Private registry with security</li>
+                                <li><strong>JFrog Artifactory:</strong> Universal registry</li>
+                                <li>Image tagging strategies</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔧 Advanced Docker Features</div>
+                            <ul>
+                                <li><strong>BuildKit:</strong> Concurrent builds, cache mounts</li>
+                                <li><strong>Docker Swarm:</strong> Native orchestration</li>
+                                <li><strong>Health Checks:</strong> HEALTHCHECK instruction</li>
+                                <li><strong>Resource Limits:</strong> CPU, memory constraints</li>
+                                <li><strong>Logging Drivers:</strong> json-file, syslog, journald</li>
+                                <li><strong>Docker Plugins:</strong> Network, volume, authorization</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Docker Compose Advanced</div>
+                            <ul>
+                                <li><strong>Environment Variables:</strong> .env files</li>
+                                <li><strong>Profiles:</strong> Selective service start</li>
+                                <li><strong>Depends_on:</strong> Service dependencies</li>
+                                <li><strong>Health Checks:</strong> Container readiness</li>
+                                <li><strong>Networks:</strong> Custom networks for isolation</li>
+                                <li><strong>Volumes:</strong> Persistent data management</li>
+                                <li>Override files for different environments</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">⚡ Image Optimization</div>
+                            <ul>
+                                <li><strong>Base Images:</strong> Alpine (5MB) vs Ubuntu (70MB)</li>
+                                <li><strong>Distroless:</strong> Google's minimal images</li>
+                                <li><strong>Layer Minimization:</strong> Combine RUN commands</li>
+                                <li><strong>Remove Unnecessary Files:</strong> Cleanup in same layer</li>
+                                <li><strong>Use .dockerignore:</strong> Exclude build context</li>
+                                <li><strong>Scan & Remove Vulnerabilities:</strong> Regular updates</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🛠️ Docker CLI Essentials</div>
+                            <ul>
+                                <li><strong>Build:</strong> docker build, docker buildx</li>
+                                <li><strong>Run:</strong> docker run with flags (-d, -p, -v, --name)</li>
+                                <li><strong>Inspect:</strong> docker logs, exec, inspect, stats</li>
+                                <li><strong>Network:</strong> docker network create/inspect</li>
+                                <li><strong>Volume:</strong> docker volume create/ls/rm</li>
+                                <li><strong>System:</strong> docker system prune, df</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Docker Best Practices</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use specific base image tags</strong> - Avoid :latest for reproducibility</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Run as non-root user</strong> - Add USER instruction in Dockerfile</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ One process per container</strong> - Follow single responsibility principle</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use multi-stage builds</strong> - Separate build and runtime stages</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Minimize layers</strong> - Combine RUN commands with && </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use .dockerignore</strong> - Exclude unnecessary files from build context</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Scan images regularly</strong> - Use tools like Trivy, Snyk for vulnerabilities</li>
+                            <li style="padding: 0.5rem 0;"><strong>✅ Use health checks</strong> - Define HEALTHCHECK in Dockerfile for monitoring</li>
+                        </ul>
+                    </div>
+
+                    <h4>🛠️ Key Docker Tools</h4>
+                    <div class="tool-list">
+                        <span class="tool-tag">Docker</span>
+                        <span class="tool-tag">Docker Compose</span>
+                        <span class="tool-tag">BuildKit</span>
+                        <span class="tool-tag">Trivy</span>
+                        <span class="tool-tag">Dive</span>
+                        <span class="tool-tag">Hadolint</span>
+                        <span class="tool-tag">Harbor</span>
                     </div>
 
                     <div class="timeline-item">
@@ -1265,6 +2125,17 @@ chmod, chown, umask</div>
                                 <strong>Docker for Developers</strong>
                             </div>
                         </div>
+                    </div>
+
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Docker Deep Dive"</strong> by Nigel Poulton - Comprehensive guide</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Docker in Action"</strong> by Jeff Nickoloff (Manning) - Practical approach</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Docker: Up & Running"</strong> by Sean P. Kane (O'Reilly) - Production ready</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Docker for Developers"</strong> by Richard Bullington-McGuire (Packt)</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "Learn Docker in a Month of Lunches"</strong> by Elton Stoneman (Manning)</li>
+                        </ul>
                     </div>
                     </div>
                 </div>
@@ -1289,25 +2160,176 @@ chmod, chown, umask</div>
                         <div class="skill-card">
                             <div class="skill-title">📚 Core Components</div>
                             <ul>
-                                <li>Pods, Deployments, Services</li>
-                                <li>ConfigMaps & Secrets</li>
-                                <li>Namespaces</li>
-                                <li>Ingress & Load Balancing</li>
-                                <li>Storage (PV, PVC)</li>
-                                <li>StatefulSets & DaemonSets</li>
+                                <li><strong>Pods:</strong> Smallest deployable units</li>
+                                <li><strong>Deployments:</strong> Declarative updates for Pods</li>
+                                <li><strong>Services:</strong> ClusterIP, NodePort, LoadBalancer</li>
+                                <li><strong>ConfigMaps & Secrets:</strong> Configuration management</li>
+                                <li><strong>Namespaces:</strong> Logical isolation & multi-tenancy</li>
+                                <li><strong>Labels & Selectors:</strong> Object grouping</li>
                             </ul>
                         </div>
 
                         <div class="skill-card">
-                            <div class="skill-title">🔧 Advanced Concepts</div>
+                            <div class="skill-title">🚢 Workload Resources</div>
                             <ul>
-                                <li>RBAC & Security</li>
-                                <li>Network Policies</li>
-                                <li>Helm Charts</li>
-                                <li>Custom Resource Definitions</li>
-                                <li>Operators</li>
+                                <li><strong>Deployments:</strong> Stateless applications</li>
+                                <li><strong>StatefulSets:</strong> Stateful apps (databases)</li>
+                                <li><strong>DaemonSets:</strong> Run on all/selected nodes</li>
+                                <li><strong>Jobs:</strong> Run-to-completion tasks</li>
+                                <li><strong>CronJobs:</strong> Scheduled jobs</li>
+                                <li><strong>ReplicaSets:</strong> Ensure pod replicas</li>
                             </ul>
                         </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🌐 Networking</div>
+                            <ul>
+                                <li><strong>Services:</strong> Service discovery & load balancing</li>
+                                <li><strong>Ingress:</strong> HTTP/HTTPS routing (Nginx, Traefik)</li>
+                                <li><strong>Network Policies:</strong> Pod-to-pod firewall rules</li>
+                                <li><strong>DNS:</strong> CoreDNS for service discovery</li>
+                                <li><strong>Service Mesh:</strong> Istio, Linkerd integration</li>
+                                <li><strong>CNI Plugins:</strong> Calico, Flannel, Cilium, Weave</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">💾 Storage</div>
+                            <ul>
+                                <li><strong>Volumes:</strong> emptyDir, hostPath, configMap</li>
+                                <li><strong>Persistent Volumes (PV):</strong> Cluster-level storage</li>
+                                <li><strong>Persistent Volume Claims (PVC):</strong> Storage requests</li>
+                                <li><strong>Storage Classes:</strong> Dynamic provisioning</li>
+                                <li><strong>CSI Drivers:</strong> AWS EBS, GCP PD, Azure Disk</li>
+                                <li>StatefulSet volume management</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔐 Security & RBAC</div>
+                            <ul>
+                                <li><strong>RBAC:</strong> Role-Based Access Control</li>
+                                <li><strong>Roles & RoleBindings:</strong> Namespace-level</li>
+                                <li><strong>ClusterRoles:</strong> Cluster-wide permissions</li>
+                                <li><strong>Service Accounts:</strong> Pod identity</li>
+                                <li><strong>Pod Security:</strong> SecurityContext, PodSecurityPolicy</li>
+                                <li><strong>Network Policies:</strong> Traffic filtering</li>
+                                <li><strong>Secrets Encryption:</strong> At-rest encryption</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">� Package Management</div>
+                            <ul>
+                                <li><strong>Helm:</strong> Package manager for Kubernetes</li>
+                                <li><strong>Charts:</strong> Pre-configured app packages</li>
+                                <li><strong>Helm Repositories:</strong> Chart storage</li>
+                                <li><strong>Values:</strong> Configuration overrides</li>
+                                <li><strong>Helm Hooks:</strong> Lifecycle management</li>
+                                <li><strong>Kustomize:</strong> Template-free customization</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">�🔧 Advanced Concepts</div>
+                            <ul>
+                                <li><strong>Custom Resource Definitions (CRD):</strong> Extend API</li>
+                                <li><strong>Operators:</strong> Application-specific controllers</li>
+                                <li><strong>Admission Controllers:</strong> Request validation/mutation</li>
+                                <li><strong>Init Containers:</strong> Pre-start configuration</li>
+                                <li><strong>Sidecars:</strong> Supporting containers in pod</li>
+                                <li><strong>Pod Disruption Budgets:</strong> Availability guarantees</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📊 Observability</div>
+                            <ul>
+                                <li><strong>Metrics Server:</strong> Resource metrics</li>
+                                <li><strong>Prometheus Operator:</strong> Monitoring stack</li>
+                                <li><strong>Liveness Probes:</strong> Container health</li>
+                                <li><strong>Readiness Probes:</strong> Traffic readiness</li>
+                                <li><strong>Startup Probes:</strong> Slow-starting containers</li>
+                                <li><strong>kubectl logs:</strong> Container logs</li>
+                                <li><strong>kubectl top:</strong> Resource usage</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">⚡ Autoscaling</div>
+                            <ul>
+                                <li><strong>Horizontal Pod Autoscaler (HPA):</strong> Scale pods</li>
+                                <li><strong>Vertical Pod Autoscaler (VPA):</strong> Adjust resources</li>
+                                <li><strong>Cluster Autoscaler:</strong> Add/remove nodes</li>
+                                <li><strong>KEDA:</strong> Event-driven autoscaling</li>
+                                <li>Custom metrics-based scaling</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🛠️ Essential kubectl Commands</div>
+                            <ul>
+                                <li><strong>Get:</strong> kubectl get pods/deployments/services</li>
+                                <li><strong>Describe:</strong> kubectl describe pod &lt;name&gt;</li>
+                                <li><strong>Logs:</strong> kubectl logs -f &lt;pod&gt;</li>
+                                <li><strong>Exec:</strong> kubectl exec -it &lt;pod&gt; -- /bin/sh</li>
+                                <li><strong>Apply:</strong> kubectl apply -f &lt;file.yaml&gt;</li>
+                                <li><strong>Port-forward:</strong> kubectl port-forward</li>
+                                <li><strong>Top:</strong> kubectl top pods/nodes</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Deployment Strategies</div>
+                            <ul>
+                                <li><strong>Rolling Update:</strong> Gradual replacement (default)</li>
+                                <li><strong>Recreate:</strong> Stop all, then start new</li>
+                                <li><strong>Blue-Green:</strong> Two identical environments</li>
+                                <li><strong>Canary:</strong> Gradual traffic shift</li>
+                                <li><strong>A/B Testing:</strong> Feature-based routing</li>
+                                <li>Rollback strategies</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🏗️ Multi-Cluster Management</div>
+                            <ul>
+                                <li><strong>kubectl contexts:</strong> Manage multiple clusters</li>
+                                <li><strong>Rancher:</strong> Multi-cluster management UI</li>
+                                <li><strong>Lens:</strong> Kubernetes IDE</li>
+                                <li><strong>k9s:</strong> Terminal-based UI</li>
+                                <li><strong>Kubectx/Kubens:</strong> Context switching</li>
+                                <li>Federation for multi-cluster apps</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Kubernetes Best Practices</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use Namespaces</strong> - Logical separation for teams/environments</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Set Resource Limits</strong> - Define requests and limits for CPU/memory</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use Liveness & Readiness Probes</strong> - Ensure app health</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Implement RBAC</strong> - Principle of least privilege</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use ConfigMaps & Secrets</strong> - Externalize configuration</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Label Everything</strong> - Organize and select resources easily</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use StatefulSets for Stateful Apps</strong> - Databases, message queues</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Implement Network Policies</strong> - Control pod-to-pod communication</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use Helm for Package Management</strong> - Standardize deployments</li>
+                            <li style="padding: 0.5rem 0;"><strong>✅ Regular Backups</strong> - Backup etcd and persistent volumes</li>
+                        </ul>
+                    </div>
+
+                    <h4>🛠️ Essential K8s Tools</h4>
+                    <div class="tool-list">
+                        <span class="tool-tag">kubectl</span>
+                        <span class="tool-tag">Helm</span>
+                        <span class="tool-tag">k9s</span>
+                        <span class="tool-tag">Lens</span>
+                        <span class="tool-tag">Kustomize</span>
+                        <span class="tool-tag">Kubectx</span>
+                        <span class="tool-tag">Stern</span>
+                        <span class="tool-tag">Kubeval</span>
                     </div>
 
                     <div class="tool-list">
@@ -1327,6 +2349,18 @@ chmod, chown, umask</div>
                             <span class="cert-priority priority-high">HIGH</span>
                             <strong>Certified Kubernetes Application Developer (CKAD)</strong>
                         </div>
+                    </div>
+
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Kubernetes in Action"</strong> by Marko Lukša (Manning) - Deep dive</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Kubernetes: Up and Running"</strong> by Kelsey Hightower (O'Reilly) - Must-read</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "The Kubernetes Book"</strong> by Nigel Poulton - Beginner friendly</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Kubernetes Patterns"</strong> by Bilgin Ibryam (O'Reilly) - Advanced patterns</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Mastering Kubernetes"</strong> by Gigi Sayfan (Packt) - Production ready</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "Production Kubernetes"</strong> by Josh Rosso (O'Reilly) - Real-world scenarios</li>
+                        </ul>
                     </div>
 
                     <div class="timeline-item">
@@ -1353,25 +2387,138 @@ chmod, chown, umask</div>
 
                     <div class="skills-grid">
                         <div class="skill-card">
-                            <div class="skill-title">🛠️ Tools</div>
+                            <div class="skill-title">� Terraform (Most Popular)</div>
+                            <span class="hot-tag">Industry Standard ⚡⚡⚡</span>
                             <ul>
-                                <li><strong>Terraform:</strong> Multi-cloud IaC</li>
-                                <li><strong>CloudFormation:</strong> AWS native</li>
-                                <li><strong>Pulumi:</strong> Code-based IaC</li>
-                                <li><strong>Ansible:</strong> Configuration management</li>
+                                <li><strong>HCL Syntax:</strong> Declarative configuration</li>
+                                <li><strong>Providers:</strong> AWS, Azure, GCP, 3000+ providers</li>
+                                <li><strong>State Management:</strong> Local, remote (S3, Terraform Cloud)</li>
+                                <li><strong>Modules:</strong> Reusable infrastructure components</li>
+                                <li><strong>Workspaces:</strong> Multiple environments</li>
+                                <li><strong>Variables:</strong> Input, output, locals</li>
+                                <li><strong>Data Sources:</strong> Query existing infrastructure</li>
                             </ul>
                         </div>
 
                         <div class="skill-card">
-                            <div class="skill-title">📋 Best Practices</div>
+                            <div class="skill-title">📝 Terraform Advanced</div>
                             <ul>
-                                <li>State management</li>
-                                <li>Modules & reusability</li>
-                                <li>Version control</li>
-                                <li>Testing infrastructure</li>
-                                <li>CI/CD for infrastructure</li>
+                                <li><strong>Remote State:</strong> S3 + DynamoDB locking</li>
+                                <li><strong>Terraform Cloud:</strong> Collaboration platform</li>
+                                <li><strong>Module Registry:</strong> Public/private modules</li>
+                                <li><strong>Count & For_each:</strong> Resource iteration</li>
+                                <li><strong>Dynamic Blocks:</strong> Conditional config</li>
+                                <li><strong>Terraform Import:</strong> Import existing resources</li>
+                                <li><strong>Terraform Validate:</strong> Syntax checking</li>
                             </ul>
                         </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">☁️ AWS CloudFormation</div>
+                            <ul>
+                                <li><strong>JSON/YAML Templates:</strong> Infra definition</li>
+                                <li><strong>Stacks:</strong> Resource collections</li>
+                                <li><strong>StackSets:</strong> Multi-account deployment</li>
+                                <li><strong>Change Sets:</strong> Preview changes</li>
+                                <li><strong>Nested Stacks:</strong> Modular templates</li>
+                                <li><strong>Custom Resources:</strong> Lambda-backed</li>
+                                <li><strong>AWS CDK:</strong> Programming language IaC</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Pulumi</div>
+                            <ul>
+                                <li><strong>Languages:</strong> TypeScript, Python, Go, C#</li>
+                                <li><strong>State Management:</strong> Pulumi Cloud</li>
+                                <li><strong>Multi-Cloud:</strong> AWS, Azure, GCP, K8s</li>
+                                <li><strong>Component Resources:</strong> Encapsulation</li>
+                                <li><strong>Secrets:</strong> Encrypted by default</li>
+                                <li><strong>Policy as Code:</strong> CrossGuard</li>
+                                <li>IDE support with IntelliSense</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">☁️ Azure ARM & Bicep</div>
+                            <ul>
+                                <li><strong>ARM Templates:</strong> Azure native (JSON)</li>
+                                <li><strong>Bicep:</strong> DSL for Azure</li>
+                                <li><strong>Resource Groups:</strong> Logical containers</li>
+                                <li><strong>Deployment Modes:</strong> Incremental, Complete</li>
+                                <li><strong>Template Specs:</strong> Centralized storage</li>
+                                <li><strong>What-if:</strong> Preview changes</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">� IaC Testing Tools</div>
+                            <ul>
+                                <li><strong>Terratest:</strong> Automated testing (Go)</li>
+                                <li><strong>Checkov:</strong> Security scanning</li>
+                                <li><strong>TFLint:</strong> Terraform linter</li>
+                                <li><strong>Sentinel:</strong> Policy as code</li>
+                                <li><strong>Infracost:</strong> Cost estimation</li>
+                                <li><strong>Kitchen-Terraform:</strong> Integration tests</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎮 OpenTofu</div>
+                            <ul>
+                                <li><strong>Open-source:</strong> Terraform fork</li>
+                                <li><strong>MPL 2.0:</strong> License</li>
+                                <li><strong>Compatible:</strong> Drop-in replacement</li>
+                                <li><strong>Linux Foundation:</strong> Community-driven</li>
+                                <li>Enhanced state encryption</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📦 Additional Tools</div>
+                            <ul>
+                                <li><strong>Crossplane:</strong> K8s-based IaC</li>
+                                <li><strong>Packer:</strong> Image building</li>
+                                <li><strong>Vagrant:</strong> Dev environments</li>
+                                <li><strong>Atlantis:</strong> Terraform PR automation</li>
+                                <li><strong>Terragrunt:</strong> Terraform wrapper</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Terraform Workflow</h4>
+                    <div class="code-block">
+# Initialize working directory
+terraform init
+
+# Format code
+terraform fmt
+
+# Validate syntax
+terraform validate
+
+# Plan changes
+terraform plan -out=tfplan
+
+# Apply changes
+terraform apply tfplan
+
+# Destroy (when needed)
+terraform destroy
+                    </div>
+
+                    <h4>📚 IaC Best Practices</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Version Control</strong> - Git for all IaC code</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Remote State</strong> - S3, Azure Storage, GCS</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ State Locking</strong> - Prevent concurrent changes</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Use Modules</strong> - Reusable components</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Separate Environments</strong> - Dev, staging, prod</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Plan Before Apply</strong> - Review changes</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Security Scanning</strong> - Checkov, tfsec</li>
+                            <li style="padding: 0.5rem 0;"><strong>✅ Tag Resources</strong> - Cost & organization</li>
+                        </ul>
                     </div>
 
                     <div class="tool-list">
@@ -1395,6 +2542,17 @@ chmod, chown, umask</div>
                         </div>
                     </div>
 
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Terraform: Up & Running"</strong> by Yevgeniy Brikman (O'Reilly) - Best seller</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Infrastructure as Code"</strong> by Kief Morris (O'Reilly) - Principles & patterns</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Terraform Cookbook"</strong> by Mikael Krief (Packt) - Practical recipes</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Pulumi in Action"</strong> by Manning - Modern IaC with code</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "AWS CloudFormation Master Class"</strong> - Deep dive into CF</li>
+                        </ul>
+                    </div>
+
                     <div class="timeline-item">
                         <span class="timeline-duration">⏱️ Time: 4-5 weeks</span>
                     </div>
@@ -1415,27 +2573,143 @@ chmod, chown, umask</div>
                     <div class="section-body">
                     <div class="skills-grid">
                         <div class="skill-card">
-                            <div class="skill-title">🔑 Core Services</div>
+                            <div class="skill-title">🔑 Compute Services</div>
                             <ul>
-                                <li><strong>EC2:</strong> Virtual servers</li>
-                                <li><strong>S3:</strong> Object storage</li>
-                                <li><strong>RDS:</strong> Managed databases</li>
-                                <li><strong>VPC:</strong> Virtual networks</li>
-                                <li><strong>Lambda:</strong> Serverless compute</li>
+                                <li><strong>EC2:</strong> Virtual servers (instances)</li>
+                                <li><strong>Lambda:</strong> Serverless functions</li>
+                                <li><strong>ECS:</strong> Container service</li>
+                                <li><strong>Fargate:</strong> Serverless containers</li>
                                 <li><strong>EKS:</strong> Managed Kubernetes</li>
+                                <li><strong>Lightsail:</strong> Simple VPS</li>
+                                <li><strong>Batch:</strong> Batch computing</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">💾 Storage Services</div>
+                            <ul>
+                                <li><strong>S3:</strong> Object storage (scalable)</li>
+                                <li><strong>EBS:</strong> Block storage for EC2</li>
+                                <li><strong>EFS:</strong> Elastic File System (NFS)</li>
+                                <li><strong>FSx:</strong> Managed file systems</li>
+                                <li><strong>Glacier:</strong> Archive storage</li>
+                                <li><strong>Storage Gateway:</strong> Hybrid storage</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🗄️ Database Services</div>
+                            <ul>
+                                <li><strong>RDS:</strong> Relational (MySQL, PostgreSQL, etc.)</li>
+                                <li><strong>Aurora:</strong> MySQL/PostgreSQL compatible</li>
+                                <li><strong>DynamoDB:</strong> NoSQL key-value</li>
+                                <li><strong>ElastiCache:</strong> Redis, Memcached</li>
+                                <li><strong>DocumentDB:</strong> MongoDB compatible</li>
+                                <li><strong>Neptune:</strong> Graph database</li>
+                                <li><strong>Redshift:</strong> Data warehouse</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🌐 Networking Services</div>
+                            <ul>
+                                <li><strong>VPC:</strong> Virtual Private Cloud</li>
+                                <li><strong>Route 53:</strong> DNS service</li>
+                                <li><strong>CloudFront:</strong> CDN</li>
+                                <li><strong>ELB:</strong> Load Balancing (ALB, NLB, CLB)</li>
+                                <li><strong>API Gateway:</strong> API management</li>
+                                <li><strong>Direct Connect:</strong> Dedicated connection</li>
+                                <li><strong>Transit Gateway:</strong> Network hub</li>
                             </ul>
                         </div>
 
                         <div class="skill-card">
                             <div class="skill-title">⚙️ DevOps Services</div>
                             <ul>
-                                <li><strong>CloudFormation:</strong> IaC</li>
-                                <li><strong>CodePipeline:</strong> CI/CD</li>
-                                <li><strong>CloudWatch:</strong> Monitoring</li>
-                                <li><strong>IAM:</strong> Security</li>
-                                <li><strong>Route 53:</strong> DNS</li>
+                                <li><strong>CloudFormation:</strong> Infrastructure as Code</li>
+                                <li><strong>CodePipeline:</strong> CI/CD orchestration</li>
+                                <li><strong>CodeBuild:</strong> Build service</li>
+                                <li><strong>CodeDeploy:</strong> Deployment automation</li>
+                                <li><strong>CodeCommit:</strong> Git repositories</li>
+                                <li><strong>CodeArtifact:</strong> Artifact repository</li>
+                                <li><strong>Systems Manager:</strong> Operations hub</li>
                             </ul>
                         </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📊 Monitoring & Logging</div>
+                            <ul>
+                                <li><strong>CloudWatch:</strong> Monitoring & logs</li>
+                                <li><strong>CloudWatch Logs:</strong> Centralized logging</li>
+                                <li><strong>CloudWatch Metrics:</strong> Custom metrics</li>
+                                <li><strong>CloudWatch Alarms:</strong> Alerting</li>
+                                <li><strong>X-Ray:</strong> Distributed tracing</li>
+                                <li><strong>CloudTrail:</strong> API logging & auditing</li>
+                                <li><strong>EventBridge:</strong> Event bus</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔒 Security & Identity</div>
+                            <ul>
+                                <li><strong>IAM:</strong> Identity & Access Management</li>
+                                <li><strong>Cognito:</strong> User authentication</li>
+                                <li><strong>Secrets Manager:</strong> Secret storage</li>
+                                <li><strong>KMS:</strong> Key Management Service</li>
+                                <li><strong>GuardDuty:</strong> Threat detection</li>
+                                <li><strong>WAF:</strong> Web Application Firewall</li>
+                                <li><strong>Security Hub:</strong> Security management</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📨 Application Integration</div>
+                            <ul>
+                                <li><strong>SQS:</strong> Message queuing</li>
+                                <li><strong>SNS:</strong> Pub/Sub notifications</li>
+                                <li><strong>EventBridge:</strong> Event-driven architecture</li>
+                                <li><strong>Step Functions:</strong> Workflow orchestration</li>
+                                <li><strong>AppSync:</strong> GraphQL API</li>
+                                <li><strong>MQ:</strong> Managed message broker</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🤖 Serverless Ecosystem</div>
+                            <ul>
+                                <li><strong>Lambda:</strong> Function as a Service</li>
+                                <li><strong>API Gateway:</strong> HTTP APIs</li>
+                                <li><strong>DynamoDB:</strong> Serverless database</li>
+                                <li><strong>S3:</strong> Object storage triggers</li>
+                                <li><strong>EventBridge:</strong> Event routing</li>
+                                <li><strong>Step Functions:</strong> State machines</li>
+                                <li><strong>SAM:</strong> Serverless Application Model</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Cost Management</div>
+                            <ul>
+                                <li><strong>Cost Explorer:</strong> Cost analysis</li>
+                                <li><strong>Budgets:</strong> Budget alerts</li>
+                                <li><strong>Trusted Advisor:</strong> Best practices</li>
+                                <li><strong>Compute Optimizer:</strong> Rightsizing</li>
+                                <li><strong>Savings Plans:</strong> Cost optimization</li>
+                                <li><strong>Reserved Instances:</strong> Long-term savings</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 AWS Well-Architected Framework</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🏗️ Operational Excellence</strong> - Run and monitor systems</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔒 Security</strong> - Protect data, systems, and assets</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🛡️ Reliability</strong> - Recover from failures, scale dynamically</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>⚡ Performance Efficiency</strong> - Use resources efficiently</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>💰 Cost Optimization</strong> - Avoid unnecessary costs</li>
+                            <li style="padding: 0.75rem 0;"><strong>🌱 Sustainability</strong> - Minimize environmental impact</li>
+                        </ul>
                     </div>
 
                     <div class="certifications">
@@ -1448,6 +2722,18 @@ chmod, chown, umask</div>
                             <span class="cert-priority priority-high">HIGH</span>
                             <strong>AWS Certified DevOps Engineer - Professional</strong>
                         </div>
+                    </div>
+
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "AWS Certified Solutions Architect Official Study Guide"</strong> - Exam prep</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Amazon Web Services in Action"</strong> by Manning - Practical AWS</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "AWS Cookbook"</strong> by O'Reilly - Solutions to common problems</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Serverless Architectures on AWS"</strong> by Manning - Serverless deep dive</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "AWS Security"</strong> by Packt - Security best practices</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "Learning AWS"</strong> by O'Reilly - Comprehensive guide</li>
+                        </ul>
                     </div>
 
                     <div class="timeline-item">
@@ -1554,28 +2840,149 @@ chmod, chown, umask</div>
                     <h3 class="section-header" onclick="toggleSection(this)"><span class="icon">📊</span> Monitoring & Observability</h3>
                     
                     <div class="section-body">
+                    <div class="why-section">
+                        <strong>Why Essential:</strong> You can't improve what you don't measure - observability is critical for production systems
+                    </div>
+
                     <div class="skills-grid">
                         <div class="skill-card">
-                            <div class="skill-title">🛠️ Tools</div>
+                            <div class="skill-title">� Prometheus</div>
+                            <span class="hot-tag">Time-Series DB ⚡⚡</span>
                             <ul>
-                                <li><strong>Prometheus:</strong> Metrics</li>
-                                <li><strong>Grafana:</strong> Visualization</li>
-                                <li><strong>ELK Stack:</strong> Logging</li>
-                                <li><strong>Datadog:</strong> All-in-one</li>
-                                <li><strong>New Relic:</strong> APM</li>
+                                <li><strong>Pull-based:</strong> Scrapes metrics from targets</li>
+                                <li><strong>PromQL:</strong> Powerful query language</li>
+                                <li><strong>Service Discovery:</strong> Kubernetes, Consul</li>
+                                <li><strong>Exporters:</strong> Node, Blackbox, custom</li>
+                                <li><strong>Alert Manager:</strong> Routing & silencing</li>
+                                <li><strong>Federation:</strong> Multi-cluster setup</li>
+                                <li>CNCF graduated project</li>
                             </ul>
                         </div>
 
                         <div class="skill-card">
-                            <div class="skill-title">📋 Key Concepts</div>
+                            <div class="skill-title">📊 Grafana</div>
+                            <span class="hot-tag">Visualization ⚡⚡</span>
                             <ul>
-                                <li>Metrics collection</li>
-                                <li>Log aggregation</li>
-                                <li>Distributed tracing</li>
-                                <li>Alerting & notifications</li>
-                                <li>Dashboards</li>
+                                <li><strong>Dashboards:</strong> Beautiful visualizations</li>
+                                <li><strong>Data Sources:</strong> Prometheus, InfluxDB, etc.</li>
+                                <li><strong>Alerting:</strong> Multi-channel notifications</li>
+                                <li><strong>Variables:</strong> Dynamic dashboards</li>
+                                <li><strong>Annotations:</strong> Mark events</li>
+                                <li><strong>Plugins:</strong> Extensible ecosystem</li>
+                                <li><strong>Grafana Loki:</strong> Log aggregation</li>
                             </ul>
                         </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📝 ELK/EFK Stack</div>
+                            <ul>
+                                <li><strong>Elasticsearch:</strong> Search & analytics</li>
+                                <li><strong>Logstash:</strong> Log processing pipeline</li>
+                                <li><strong>Kibana:</strong> Visualization & exploration</li>
+                                <li><strong>Filebeat:</strong> Lightweight shipper</li>
+                                <li><strong>Fluentd:</strong> Log collector (CNCF)</li>
+                                <li><strong>Fluent Bit:</strong> Lightweight forwarder</li>
+                                <li>Centralized log management</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔍 Distributed Tracing</div>
+                            <ul>
+                                <li><strong>Jaeger:</strong> CNCF graduated, Uber-developed</li>
+                                <li><strong>Zipkin:</strong> Twitter-developed</li>
+                                <li><strong>Tempo:</strong> Grafana's tracing backend</li>
+                                <li><strong>OpenTelemetry:</strong> Unified observability</li>
+                                <li><strong>AWS X-Ray:</strong> AWS native</li>
+                                <li>Trace request flow across microservices</li>
+                                <li>Performance bottleneck identification</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🌐 OpenTelemetry</div>
+                            <span class="hot-tag">CNCF Standard ⚡⚡⚡</span>
+                            <ul>
+                                <li><strong>Unified Standard:</strong> Metrics, logs, traces</li>
+                                <li><strong>Auto-instrumentation:</strong> Multiple languages</li>
+                                <li><strong>Vendor-neutral:</strong> Backend agnostic</li>
+                                <li><strong>SDKs:</strong> Java, Python, Go, JavaScript</li>
+                                <li><strong>Collectors:</strong> Data pipeline</li>
+                                <li><strong>Context Propagation:</strong> Distributed tracing</li>
+                                <li>Merge of OpenTracing & OpenCensus</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📊 APM Tools</div>
+                            <ul>
+                                <li><strong>Datadog:</strong> All-in-one observability</li>
+                                <li><strong>New Relic:</strong> Application monitoring</li>
+                                <li><strong>Dynatrace:</strong> AI-powered insights</li>
+                                <li><strong>AppDynamics:</strong> Business metrics</li>
+                                <li><strong>Splunk:</strong> Data analytics platform</li>
+                                <li>Real-time performance monitoring</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">� Modern Observability</div>
+                            <ul>
+                                <li><strong>Loki:</strong> Log aggregation (Grafana)</li>
+                                <li><strong>Thanos:</strong> Highly available Prometheus</li>
+                                <li><strong>Cortex:</strong> Multi-tenant Prometheus</li>
+                                <li><strong>VictoriaMetrics:</strong> Fast TSDB</li>
+                                <li><strong>Mimir:</strong> Grafana's Prometheus fork</li>
+                                <li><strong>M3:</strong> Uber's metrics platform</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔔 Alerting & Incident Management</div>
+                            <ul>
+                                <li><strong>PagerDuty:</strong> Incident response</li>
+                                <li><strong>Opsgenie:</strong> Alert management</li>
+                                <li><strong>VictorOps:</strong> On-call management</li>
+                                <li><strong>Alert Manager:</strong> Prometheus alerts</li>
+                                <li><strong>Grafana OnCall:</strong> On-call rotation</li>
+                                <li>Multi-channel notifications (Slack, email, SMS)</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📊 Key Metrics (Golden Signals)</div>
+                            <ul>
+                                <li><strong>Latency:</strong> Request response time</li>
+                                <li><strong>Traffic:</strong> Request rate (RPS)</li>
+                                <li><strong>Errors:</strong> Error rate (%)</li>
+                                <li><strong>Saturation:</strong> Resource utilization</li>
+                                <li><strong>RED Method:</strong> Rate, Errors, Duration</li>
+                                <li><strong>USE Method:</strong> Utilization, Saturation, Errors</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Observability Pillars</div>
+                            <ul>
+                                <li><strong>Metrics:</strong> Numeric measurements over time</li>
+                                <li><strong>Logs:</strong> Event records with context</li>
+                                <li><strong>Traces:</strong> Request journey across services</li>
+                                <li><strong>Correlation:</strong> Connect all three pillars</li>
+                                <li><strong>Context:</strong> Business & technical metadata</li>
+                                <li>Unified observability platform</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Observability Stack (LGTM)</h4>
+                    <div class="highlight-box">
+                        <strong>Modern Grafana Stack:</strong>
+                        <ul>
+                            <li><strong>L - Loki:</strong> Logs aggregation</li>
+                            <li><strong>G - Grafana:</strong> Visualization & dashboards</li>
+                            <li><strong>T - Tempo:</strong> Distributed tracing</li>
+                            <li><strong>M - Mimir:</strong> Metrics (Prometheus-compatible)</li>
+                        </ul>
                     </div>
 
                     <div class="tool-list">
@@ -1877,6 +3284,18 @@ chmod, chown, umask</div>
                                 <strong>Google Cloud Professional Cloud DevOps Engineer</strong>
                             </div>
                         </div>
+                    </div>
+
+                    <h4>📚 Recommended Books</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Site Reliability Engineering"</strong> by Google (O'Reilly) - Bible of SRE</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "The Site Reliability Workbook"</strong> by Google (O'Reilly) - Practical SRE</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Seeking SRE"</strong> by David N. Blank-Edelman (O'Reilly) - Industry perspectives</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Building Secure and Reliable Systems"</strong> by Google (O'Reilly)</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>📖 "Chaos Engineering"</strong> by Casey Rosenthal (O'Reilly)</li>
+                            <li style="padding: 0.5rem 0;"><strong>📖 "Practical Monitoring"</strong> by Mike Julian (O'Reilly) - Observability guide</li>
+                        </ul>
                     </div>
 
                     <div class="timeline-item">
@@ -2229,9 +3648,280 @@ chmod, chown, umask</div>
             </div>
         </div>
 
+        <!-- Learning Resources & Best Practices -->
+        <div class="phase phase-6" id="resources">
+            <div class="phase-header" onclick="togglePhase(this)">
+                <div class="phase-title"><span class="icon">📚</span> Learning Resources & Best Practices</div>
+            </div>
+            <div class="phase-content">
+                <!-- Learning Resources -->
+                <div class="section">
+                    <h3 class="section-header" onclick="toggleSection(this)"><span class="icon">📖</span> Essential Learning Resources</h3>
+                    
+                    <div class="section-body">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">📚 Must-Read Books</div>
+                            <ul>
+                                <li><strong>"The Phoenix Project"</strong> - DevOps novel</li>
+                                <li><strong>"The DevOps Handbook"</strong> - Practical guide</li>
+                                <li><strong>"Site Reliability Engineering"</strong> - Google SRE</li>
+                                <li><strong>"The SRE Workbook"</strong> - Practical SRE</li>
+                                <li><strong>"Accelerate"</strong> - DevOps research</li>
+                                <li><strong>"Kubernetes in Action"</strong> - K8s deep dive</li>
+                                <li><strong>"Designing Data-Intensive Applications"</strong></li>
+                                <li><strong>"System Design Interview"</strong> - Alex Xu</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎥 YouTube Channels</div>
+                            <ul>
+                                <li><strong>TechWorld with Nana</strong> - DevOps tutorials</li>
+                                <li><strong>ByteByteGo</strong> - System design</li>
+                                <li><strong>Cloud Advocate</strong> - Cloud & DevOps</li>
+                                <li><strong>That DevOps Guy</strong> - DevOps concepts</li>
+                                <li><strong>DevOps Toolkit</strong> - Advanced topics</li>
+                                <li><strong>Kodekloud</strong> - Hands-on labs</li>
+                                <li><strong>freeCodeCamp</strong> - Complete courses</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🌐 Online Platforms</div>
+                            <ul>
+                                <li><strong>KodeKloud:</strong> Interactive DevOps labs</li>
+                                <li><strong>A Cloud Guru:</strong> Cloud certifications</li>
+                                <li><strong>Linux Academy:</strong> DevOps courses</li>
+                                <li><strong>Udemy:</strong> Affordable courses</li>
+                                <li><strong>Coursera:</strong> University courses</li>
+                                <li><strong>Pluralsight:</strong> Tech skills</li>
+                                <li><strong>O'Reilly Learning:</strong> Books & videos</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🛠️ Hands-on Practice</div>
+                            <ul>
+                                <li><strong>Killercoda:</strong> Interactive scenarios</li>
+                                <li><strong>Play with Docker:</strong> Free Docker lab</li>
+                                <li><strong>Play with Kubernetes:</strong> Free K8s lab</li>
+                                <li><strong>AWS Free Tier:</strong> 12 months free</li>
+                                <li><strong>GitHub:</strong> Host personal projects</li>
+                                <li><strong>LeetCode (System Design):</strong> Interview prep</li>
+                                <li><strong>Kubernetes Tutorials:</strong> Official docs</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📰 Blogs & Newsletters</div>
+                            <ul>
+                                <li><strong>DevOps.com:</strong> News & articles</li>
+                                <li><strong>DZone DevOps:</strong> Community articles</li>
+                                <li><strong>The New Stack:</strong> Cloud native news</li>
+                                <li><strong>High Scalability:</strong> Architecture blog</li>
+                                <li><strong>AWS Blog:</strong> Official AWS updates</li>
+                                <li><strong>CNCF Blog:</strong> Cloud native updates</li>
+                                <li><strong>SRE Weekly:</strong> Newsletter</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">👥 Communities</div>
+                            <ul>
+                                <li><strong>CNCF Slack:</strong> Cloud native community</li>
+                                <li><strong>DevOps Chat:</strong> Slack workspace</li>
+                                <li><strong>Reddit r/devops:</strong> Discussion forum</li>
+                                <li><strong>Stack Overflow:</strong> Q&A platform</li>
+                                <li><strong>Kubernetes Slack:</strong> K8s community</li>
+                                <li><strong>Discord Servers:</strong> Various DevOps servers</li>
+                                <li><strong>Meetup.com:</strong> Local DevOps groups</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎓 Free Certifications</div>
+                            <ul>
+                                <li><strong>Google Cloud Skills Boost:</strong> Free labs</li>
+                                <li><strong>Microsoft Learn:</strong> Azure learning paths</li>
+                                <li><strong>AWS Educate:</strong> Free training</li>
+                                <li><strong>GitHub Learning Lab:</strong> Git tutorials</li>
+                                <li><strong>Kubernetes Fundamentals:</strong> Free course</li>
+                                <li><strong>Docker Essentials:</strong> Free training</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🔧 Practice Projects</div>
+                            <ul>
+                                <li><strong>Build CI/CD Pipeline:</strong> GitHub Actions</li>
+                                <li><strong>Deploy Microservices:</strong> On Kubernetes</li>
+                                <li><strong>Infrastructure as Code:</strong> Terraform AWS</li>
+                                <li><strong>Monitoring Stack:</strong> Prometheus + Grafana</li>
+                                <li><strong>GitOps Setup:</strong> ArgoCD deployment</li>
+                                <li><strong>Security Scanning:</strong> Integrate Trivy</li>
+                                <li><strong>Blog Platform:</strong> End-to-end DevOps</li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Interview Preparation -->
+                <div class="section">
+                    <h3 class="section-header" onclick="toggleSection(this)"><span class="icon">💼</span> Interview Preparation & Common Questions</h3>
+                    
+                    <div class="section-body">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">❓ Common DevOps Questions</div>
+                            <ul>
+                                <li>Explain CI/CD pipeline with example</li>
+                                <li>Difference between Docker and VM?</li>
+                                <li>How does Kubernetes scheduling work?</li>
+                                <li>What is Infrastructure as Code?</li>
+                                <li>Explain blue-green vs canary deployment</li>
+                                <li>How do you troubleshoot pod crashes?</li>
+                                <li>What is GitOps?</li>
+                                <li>Explain service mesh benefits</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">❓ SRE Questions</div>
+                            <ul>
+                                <li>What are SLIs, SLOs, and SLAs?</li>
+                                <li>How do you calculate error budget?</li>
+                                <li>Explain incident management process</li>
+                                <li>What is chaos engineering?</li>
+                                <li>How do you monitor microservices?</li>
+                                <li>Difference between monitoring and observability?</li>
+                                <li>Explain capacity planning approach</li>
+                                <li>How do you handle on-call rotation?</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">❓ Cloud Questions</div>
+                            <ul>
+                                <li>AWS VPC architecture explanation</li>
+                                <li>How to secure S3 buckets?</li>
+                                <li>Explain auto-scaling in cloud</li>
+                                <li>Multi-region deployment strategy</li>
+                                <li>Cost optimization techniques</li>
+                                <li>Serverless vs containers - when to use?</li>
+                                <li>Cloud disaster recovery planning</li>
+                                <li>IAM best practices</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🛠️ Scenario-Based Questions</div>
+                            <ul>
+                                <li>"Pod keeps crashing" - troubleshoot</li>
+                                <li>"Application slow" - how to debug?</li>
+                                <li>"Deploy without downtime" - approach?</li>
+                                <li>"Cost suddenly increased" - investigate</li>
+                                <li>"Security breach" - response plan</li>
+                                <li>"Database backup & restore" - strategy</li>
+                                <li>"High traffic spike" - handle how?</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Interview Preparation Tips</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Build Real Projects</strong> - Hands-on experience matters most</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Document on GitHub</strong> - Showcase your work publicly</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Write Technical Blogs</strong> - Medium, Dev.to, Hashnode</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Practice System Design</strong> - Draw diagrams, explain architecture</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Learn to Troubleshoot</strong> - Practice debugging scenarios</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Understand Why, Not Just How</strong> - Explain reasoning</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"><strong>✅ Stay Updated</strong> - Follow tech news, new tools</li>
+                            <li style="padding: 0.5rem 0;"><strong>✅ Get Certifications</strong> - Validate your knowledge</li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Career Tips -->
+                <div class="section">
+                    <h3 class="section-header" onclick="toggleSection(this)"><span class="icon">🚀</span> Career Tips & Best Practices</h3>
+                    
+                    <div class="section-body">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-title">💡 Golden Rules</div>
+                            <ul>
+                                <li><strong>Automate Everything:</strong> If you do it twice, automate it</li>
+                                <li><strong>Document Everything:</strong> README, runbooks, wikis</li>
+                                <li><strong>Version Control Everything:</strong> Code, configs, docs</li>
+                                <li><strong>Monitor Everything:</strong> Metrics, logs, traces</li>
+                                <li><strong>Test Everything:</strong> Unit, integration, E2E</li>
+                                <li><strong>Security First:</strong> Shift-left security</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">🎯 Learning Strategy</div>
+                            <ul>
+                                <li><strong>Learn by Doing:</strong> Practice > Theory</li>
+                                <li><strong>Break Things:</strong> Learn from failures</li>
+                                <li><strong>Read Others' Code:</strong> GitHub, open source</li>
+                                <li><strong>Join Communities:</strong> Network & learn</li>
+                                <li><strong>Teach Others:</strong> Best way to learn</li>
+                                <li><strong>Stay Curious:</strong> Always ask why</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">📈 Career Growth</div>
+                            <ul>
+                                <li><strong>Master Fundamentals:</strong> Linux, networking, Git</li>
+                                <li><strong>One Cloud Deep:</strong> AWS/Azure/GCP expertise</li>
+                                <li><strong>CI/CD Expertise:</strong> Build robust pipelines</li>
+                                <li><strong>Container Orchestration:</strong> Kubernetes mastery</li>
+                                <li><strong>Observability:</strong> Monitoring & debugging</li>
+                                <li><strong>Soft Skills:</strong> Communication, collaboration</li>
+                            </ul>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-title">⏱️ Time Management</div>
+                            <ul>
+                                <li><strong>3-6 Months:</strong> Basics (Linux, Git, Docker)</li>
+                                <li><strong>6-12 Months:</strong> K8s, CI/CD, one cloud</li>
+                                <li><strong>12-18 Months:</strong> Advanced topics, IaC</li>
+                                <li><strong>18-24 Months:</strong> Job-ready, certifications</li>
+                                <li>Consistent daily practice</li>
+                                <li>Build portfolio projects</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 DevOps Culture & Mindset</h4>
+                    <div class="highlight-box">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🤝 Collaboration Over Competition</strong> - Break silos between Dev & Ops</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🚀 Move Fast, Don't Break Things</strong> - Speed with stability</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>📊 Measure Everything</strong> - Data-driven decisions</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🔄 Continuous Improvement</strong> - Kaizen mindset</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>💡 Learn from Failures</strong> - Blameless post-mortems</li>
+                            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);"><strong>🛡️ Security as Code</strong> - Shift-left security practices</li>
+                            <li style="padding: 0.75rem 0;"><strong>🌱 Sustainable Pace</strong> - Avoid burnout, maintain quality</li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <div class="footer" id="tips">
             <h2>🎯 Your Journey Starts Now!</h2>
+            <p>Remember: DevOps is a journey, not a destination. Keep learning, practicing, and growing!</p>
+            <p>⭐ Start with fundamentals, build projects, get certifications, and land your dream job! ⭐</p>
         </div>
     </div>
 
@@ -2259,6 +3949,24 @@ chmod, chown, umask</div>
             }
         });
 
+        // Back to Top Button Functionality
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -2272,8 +3980,6 @@ chmod, chown, umask</div>
                 }
             });
         });
-
-        // NOTE: Scroll animation removed - all sections visible immediately for better UX
 
         // Collapsible Phase Toggle
         function togglePhase(element) {
